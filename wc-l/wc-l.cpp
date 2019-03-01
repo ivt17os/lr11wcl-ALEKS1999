@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -10,7 +11,7 @@
 using namespace std;
 
 int main(int argc, char** argv ) {
-    long long t1, t2, freq;
+	long long t1, t2, freq, n=0;
 	string str;
 	
 	//if (argc == 1) 
@@ -23,13 +24,20 @@ int main(int argc, char** argv ) {
 	
 	ifstream f("a.txt");
 	
-    QueryPerformanceFrequency((LARGE_INTEGER *)&freq);// запрашиваем число тиков в 1 сек
+    
+	QueryPerformanceFrequency((LARGE_INTEGER *)&freq);// запрашиваем число тиков в 1 сек
 
 
 	QueryPerformanceCounter((LARGE_INTEGER *)&t1);// смотрим время после окончания цикла
-	getline(f, str);
+	
+	while (!f.eof()){
+		getline(f, str);
+		n++;
+	}
+	
 	QueryPerformanceCounter((LARGE_INTEGER *)&t2);// смотрим время после окончания цикла
 
-	cout << str << "\n Time spent:" << (t2-t1)/(1.*freq);
+	cout << str << "\n Time spent:" << (t2-t1)/(1.*freq) << "\n";
+	cout << "n =" << n;
 	return 0;
 }
